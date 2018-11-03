@@ -12,7 +12,7 @@
 # Happy Coding!
 
 service:
-  name: vie-telegram # NOTE: update this with your service name
+  name: vie # NOTE: update this with your service name
   # TODO Use different KMS for dev and production
   awsKmsKeyArn: ${env:AWS_KMS_KEY}
 
@@ -23,7 +23,6 @@ frameworkVersion: "=1.32.0"
 provider:
   name: aws
   runtime: nodejs8.10
-  region: eu-central-1
   stage: ${opt:stage, 'dev'}
   environment:
     # ~true is added at the end to decrypt the SecureString parameter from SSM
