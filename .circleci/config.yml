@@ -34,7 +34,8 @@ jobs:
       # deploy app
       - run:
           name: Deploy application
-          command: sls deploy -v
+          # Ideally we would pickup the region from an environment variable
+          command: sls deploy -v --region eu-central-1
 
       - save_cache:
           paths:

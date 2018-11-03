@@ -14,7 +14,7 @@
 service:
   name: vie-telegram # NOTE: update this with your service name
   # TODO Use different KMS for dev and production
-  awsKmsKeyArn: arn:aws:kms:eu-central-1:854376586701:key/2f5d5ec2-c761-45a3-91b1-aa59243ea9ef
+  awsKmsKeyArn: ${env:AWS_KMS_KEY}
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
