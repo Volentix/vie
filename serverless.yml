@@ -1,0 +1,53 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service:
+  name: vie-telegram # NOTE: update this with your service name
+  # TODO Use different KMS for dev and production
+  awsKmsKeyArn: arn:aws:kms:eu-central-1:854376586701:key/2f5d5ec2-c761-45a3-91b1-aa59243ea9ef
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: "=1.32.0"
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  profile: serverless
+  region: eu-central-1
+  stage: ${opt:stage, 'dev'}
+  environment:
+    # ~true is added at the end to decrypt the SecureString parameter from SSM
+    TELEGRAM_TOKEN: ${ssm:vie-telegram_token-${self:provider.stage}~true}
+    NTBA_FIX_319: true
+    NTBA_FIX_350: true
+    STAGE: ${self:provider.stage}
+
+# you can add packaging information here
+package:
+  #  include:
+  #    - include-me.js
+  #    - include-me-dir/**
+  exclude:
+    - coverage/**
+    - .circleci/**
+
+functions:
+  register:
+    handler: handler.register
+    timeout: 20
+
+  telegram:
+    handler: handler.telegram
+    events:
+      - http: POST telegram
