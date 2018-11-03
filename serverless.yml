@@ -23,7 +23,6 @@ frameworkVersion: "=1.32.0"
 provider:
   name: aws
   runtime: nodejs8.10
-  profile: serverless
   region: eu-central-1
   stage: ${opt:stage, 'dev'}
   environment:
